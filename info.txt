@@ -1,0 +1,51 @@
+= URLs
+ - http://localhost:8088/springWebShop/login
+
+
+01) Описание на проекта
+Този проект представя Уеб магазин.
+Според правата за достъп в магазина имаме два вида потребители:
+ - Потребители на уеб магазина, които могат да поръчват продукти.
+ - Служители на фирмата оперираща уеб магазина, които могат да редактират данните в уеб магазина. 
+
+
+02) Диаграма на класовете
+ - WS_Product.jpg
+ - WS_User_Role.jpg
+
+03) DDL 
+ - DDL.sql
+ - DML.sql
+
+
+04) Описание на класовете в проекта
+04.1) Слой с класове, които описват предметната област на приложението
+ - bg/jwd/spring/model/security/impl/RoleImpl.java
+ - bg/jwd/spring/model/security/impl/UserImpl.java
+
+ - bg/jwd/spring/model/product/impl/ProductImpl.java
+ - bg/jwd/spring/model/product/impl/ProductTypeImpl.java
+
+04.2) Слой за достъп до данните (DAO)
+ - bg/jwd/spring/dao/AbstractHibernateDAO.java
+
+ - bg/jwd/spring/dao/security/IRoleDao.java
+ - bg/jwd/spring/dao/security/IUserDao.java
+ - bg/jwd/spring/dao/security/impl/RoleDaoImpl.java
+ - bg/jwd/spring/dao/security/impl/UserDaoImpl.java
+
+ - bg/jwd/spring/dao/product/IProductDao.java
+ - bg/jwd/spring/dao/product/IProductTypeDao.java
+ - bg/jwd/spring/dao/product/impl/ProductDaoImpl.java
+ - bg/jwd/spring/dao/product/impl/ProductTypeDaoImpl.java
+
+04.3) Слой с класове, които предоставят бизнес функционалност (Service)
+ - bg/jwd/spring/service/UserService.java
+ - bg/jwd/spring/service/ProductService.java
+ - bg/jwd/spring/service/ProductTypeService.java
+
+04.4) Слой с класове, които получават заявките от уеб брaузарите.
+ - bg/jwd/spring/controller/LoginController.java
+ - bg/jwd/spring/controller/CustomerController.java
+ - bg/jwd/spring/controller/ProductController.java
+ - bg/jwd/spring/controller/ProductTypeController.java
