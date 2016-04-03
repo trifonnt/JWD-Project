@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import bg.jwd.spring.AppConstants;
 import bg.jwd.spring.dto.ProductDTO;
-import bg.jwd.spring.model.product.impl.ProductImpl;
-import bg.jwd.spring.model.product.impl.ProductTypeImpl;
-import bg.jwd.spring.service.ProductService;
-import bg.jwd.spring.service.ProductTypeService;
+import bg.jwd.spring.model.product.ProductType;
+import bg.jwd.spring.model.product.Product;
+import bg.jwd.spring.service.IProductTypeService;
+import bg.jwd.spring.service.IProductService;
 
 
 @Controller
@@ -26,10 +26,10 @@ public class ProductController {
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 	@Inject
-	private ProductService productService;
+	private IProductService productService;
 
 	@Inject
-	private ProductTypeService productTypeService;
+	private IProductTypeService productTypeService;
 
 //	@Inject
 //	private UserService userService;
@@ -40,7 +40,7 @@ public class ProductController {
 	public String showNewProductForm(Model model, @PathVariable("typeId") long typeId) {
 		logger.info("Show - Product creation page!");
 
-		ProductTypeImpl productType = productTypeService.findProductTypeById( typeId );
+		ProductType productType = productTypeService.findProductTypeById( typeId );
 		if (productType == null) {
 			model.addAttribute("errorMessage", "Path Variable [productType] is invalid!");
 			return AppConstants.PRODUCT_REGISTER_FRONT_END_PAGE;
@@ -71,13 +71,13 @@ public class ProductController {
 			model.addAttribute("errorMessage", "Form input field [typeName] is mandatory!");
 			return AppConstants.NEW_PRODUCT_FRONT_END_PAGE;
 		}
-		ProductTypeImpl productType = productTypeService.findProductTypeByName(typeName);
+		ProductType productType = productTypeService.findProductTypeByName(typeName);
 		if (productType == null) {
 			model.addAttribute("errorMessage", "Wrong value of input field [typeName]!");
 			return AppConstants.NEW_PRODUCT_FRONT_END_PAGE;
 		}
 
-		ProductImpl product = productService.findProductByNumber( number );
+		Product product = productService.findProductByNumber( number );
 		if (product == null) {
 			product = productService.createProduct(number, name, productType, null);
 			product.setDescription( productDto.getDescription() );
@@ -100,7 +100,7 @@ public class ProductController {
 	public String showEditProductForm(Model model, @PathVariable("id") long productId) {
 		logger.info("Show - Product EDIT page!");
 
-		ProductImpl product = productService.findProductById( productId );
+		Product product = productService.findProductById( productId );
 		if (product == null) {
 			model.addAttribute("errorMessage", "Path Variable [productId] is invalid!");
 			return AppConstants.PRODUCT_REGISTER_FRONT_END_PAGE;
@@ -114,7 +114,7 @@ public class ProductController {
 	public String editProduct(Model model, @PathVariable("id") long productId, @ModelAttribute("product")ProductDTO productDto) {
 		logger.debug("POST - Product! ProductDTO is {}.", productDto);
 
-		ProductImpl product = productService.findProductById( productId );
+		Product product = productService.findProductById( productId );
 		if (product == null) {
 			model.addAttribute("errorMessage", "Product with id["+productId+"] do not exist!");
 			model.addAttribute("productDTOs", productService.getAllProducts( null ));

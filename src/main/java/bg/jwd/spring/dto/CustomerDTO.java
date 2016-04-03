@@ -1,6 +1,6 @@
 package bg.jwd.spring.dto;
 
-import bg.jwd.spring.model.security.impl.UserImpl;
+import bg.jwd.spring.model.security.User;
 
 public class CustomerDTO {
 
@@ -82,7 +82,7 @@ public class CustomerDTO {
 		this.phone = phone;
 	}
 
-	public static CustomerDTO constructDto(UserImpl user) {
+	public static CustomerDTO constructDto(User user) {
 		CustomerDTO result = new CustomerDTO();
 		if (user != null) {
 			result.setId( user.getId() );

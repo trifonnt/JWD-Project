@@ -1,16 +1,18 @@
-package bg.jwd.spring.model.security.impl;
+package bg.jwd.spring.model.security;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import bg.jwd.spring.model.security.IRole;
-
 
 @Entity
 @Table(name = "ws_role")
-public class RoleImpl implements IRole {
+public class Role implements Serializable
+//, IRole 
+{
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,10 +27,10 @@ public class RoleImpl implements IRole {
 	private String name;
 
 	
-	public RoleImpl() {
+	public Role() {
 		this("anonymous");
 	}
-	public RoleImpl(String name) {
+	public Role(String name) {
 		this.name = name;
 		active = true;
 	}
@@ -40,20 +42,16 @@ public class RoleImpl implements IRole {
 		this.id = id;
 	}
 
-	@Override
 	public boolean isActive() {
 		return active;
 	}
-	@Override
 	public void setActive(boolean active) {
 		this.active = active;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}

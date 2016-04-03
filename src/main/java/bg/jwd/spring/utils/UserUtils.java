@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import bg.jwd.spring.model.security.IUser;
+import bg.jwd.spring.model.security.User;
 
 
 public class UserUtils {
@@ -25,7 +25,7 @@ public class UserUtils {
 		return currentUserName;
 	}
 
-	public static IUser getCurrentUser() {
+	public static User getCurrentUser() {
 		Object principal;
 
 		try {
@@ -34,11 +34,11 @@ public class UserUtils {
 			return null;
 		}
 
-		if (principal == null || !(principal instanceof IUser)) {
+		if (principal == null || !(principal instanceof User)) {
 			return null;
 		}
 
-		return (IUser) principal;
+		return (User) principal;
 	}
 
 	public static boolean hasRole(String roleName) {
@@ -47,7 +47,7 @@ public class UserUtils {
 		}
 		boolean hasRole = false;
 		if (UserUtils.getCurrentUser() != null) {
-			IUser currentUser = UserUtils.getCurrentUser();
+			User currentUser = UserUtils.getCurrentUser();
 			Collection<? extends GrantedAuthority> permissions = currentUser.getAuthorities();
 			for (GrantedAuthority currentPermission : permissions) {
 				if (roleName.equals( currentPermission.getAuthority()) ) {

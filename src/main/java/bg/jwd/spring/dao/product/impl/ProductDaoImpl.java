@@ -15,14 +15,14 @@ import org.springframework.stereotype.Repository;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
 import bg.jwd.spring.dto.ProductDTO;
-import bg.jwd.spring.model.product.IProductType;
-import bg.jwd.spring.model.product.impl.ProductImpl;
-import bg.jwd.spring.model.security.impl.UserImpl;
+import bg.jwd.spring.model.product.ProductType;
+import bg.jwd.spring.model.product.Product;
+import bg.jwd.spring.model.security.User;
 
 
 @Repository(value="productDaoImpl")
 public class ProductDaoImpl
-	extends AbstractHibernateDAO<ProductImpl>
+	extends AbstractHibernateDAO<Product>
 //	implements IProductDao
 {
 
@@ -31,7 +31,7 @@ public class ProductDaoImpl
 	private static AtomicLong idCounter = null;
 
 	public ProductDaoImpl() {
-		setClazz(ProductImpl.class );
+		setClazz(Product.class );
 	}
 
 
@@ -51,37 +51,37 @@ public class ProductDaoImpl
 		logger.info("idCounter = {}", idCounter);
 	}
 
-	public ProductImpl createProduct(String productNumber, String name, IProductType type, UserImpl creator) {
+	public Product createProduct(String productNumber, String name, ProductType type, User creator) {
 		if (productNumber == null || productNumber.isEmpty()) {
 			throw new IllegalArgumentException("ProductNumber MUST not be null!");
 		}
-		UserImpl currentCreator = creator;
+		User currentCreator = creator;
 //		if (currentCreator == null) {
 //			currentCreator = (UserImpl)UserUtils.getCurrentUser();
 //		}
-		ProductImpl product = new ProductImpl(productNumber, name, type, currentCreator);
+		Product product = new Product(productNumber, name, type, currentCreator);
 		product.setId( idCounter.incrementAndGet() );
 		return product;
 	}
 
-	public ProductImpl findByNumber(String number) {
+	public Product findByNumber(String number) {
 		if (number == null || number.isEmpty()) {
 			throw new IllegalArgumentException("ProductNumber MUST not be empty!");
 		}
 		String hql = "FROM " + clazz.getName() + " WHERE number = :number";
-		ProductImpl result = (ProductImpl) getSession().createQuery( hql )
+		Product result = (Product) getSession().createQuery( hql )
 			.setString("number", number)
 			.uniqueResult();
 		logger.info("--- FOUND Product: " + result);
 		return result;
 	}
-	public List<ProductImpl> findByName(String name) {
+	public List<Product> findByName(String name) {
 		if (name == null || name.isEmpty()) {
 			throw new IllegalArgumentException("Name MUST not be empty!");
 		}
 		String hql = "FROM " + clazz.getName() + " WHERE name = :name";
 		@SuppressWarnings("unchecked")
-		List<ProductImpl> result = getSession().createQuery( hql )
+		List<Product> result = getSession().createQuery( hql )
 			.setString("name", name)
 			.list();
 		logger.info("--- FOUND Product: " + result);

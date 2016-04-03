@@ -1,4 +1,4 @@
-package bg.jwd.spring.model.security.impl;
+package bg.jwd.spring.model.security;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserImpl user = userDaoImpl.findByUsername( username );
+		User user = userDaoImpl.findByUsername( username );
 		if (user != null) {
 //			user.addAuthority( new SimpleGrantedAuthority("ROLE_USER") );
 //			if (username.startsWith("admin")) {

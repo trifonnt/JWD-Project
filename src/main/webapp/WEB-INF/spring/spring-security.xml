@@ -50,7 +50,7 @@
 	</security:global-method-security>
 
 
-	<bean id='userDetailsService' class='bg.jwd.spring.model.security.impl.UserDetailsServiceImpl'>
+	<bean id='userDetailsService' class='bg.jwd.spring.model.security.UserDetailsServiceImpl'>
 		<property name='userDaoImpl' ref='userDaoImpl' />
 	</bean>
 

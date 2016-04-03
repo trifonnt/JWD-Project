@@ -14,13 +14,13 @@ import org.springframework.stereotype.Repository;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
 import bg.jwd.spring.dto.CustomerDTO;
-import bg.jwd.spring.model.security.IRole;
-import bg.jwd.spring.model.security.impl.UserImpl;
+import bg.jwd.spring.model.security.Role;
+import bg.jwd.spring.model.security.User;
 
 
 @Repository(value="userDaoImpl")
 public class UserDaoImpl
-	extends AbstractHibernateDAO<UserImpl>
+	extends AbstractHibernateDAO<User>
 //	implements IUserDao 
 {
 
@@ -30,7 +30,7 @@ public class UserDaoImpl
 
 
 	public UserDaoImpl() {
-		setClazz(UserImpl.class );
+		setClazz(User.class );
 	}
 
 	@PostConstruct
@@ -50,19 +50,19 @@ public class UserDaoImpl
 		logger.info("idCounter = {}", idCounter);
 	}
 
-	public UserImpl createUser(String username, String password, List<IRole> roles) {
-		UserImpl user = new UserImpl( username, password, roles);
+	public User createUser(String username, String password, List<Role> roles) {
+		User user = new User( username, password, roles);
 		user.setId( idCounter.incrementAndGet() );
 		return user;
 	}
 
 //	@Override
-	public UserImpl findByUsername(String username) {
+	public User findByUsername(String username) {
 		if (username == null || username.isEmpty()) {
 			throw new IllegalArgumentException("Username MUST not be empty!");
 		}
 		String hql = "FROM " + clazz.getName() + " WHERE username = :username";
-		UserImpl result = (UserImpl) getSession().createQuery( hql )
+		User result = (User) getSession().createQuery( hql )
 			.setString("username", username)
 			.uniqueResult();
 		logger.info("--- FOUND user: " + result);

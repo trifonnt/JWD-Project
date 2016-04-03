@@ -2,7 +2,7 @@ package bg.jwd.spring.dto;
 
 import java.math.BigDecimal;
 
-import bg.jwd.spring.model.product.impl.ProductImpl;
+import bg.jwd.spring.model.product.Product;
 
 public class ProductDTO {
 
@@ -113,7 +113,7 @@ public class ProductDTO {
 		this.creatorName = creatorName;
 	}
 
-	public static ProductDTO constructDto(ProductImpl product) {
+	public static ProductDTO constructDto(Product product) {
 		ProductDTO result = new ProductDTO();
 		if (product != null) {
 			result.setId( product.getId() );

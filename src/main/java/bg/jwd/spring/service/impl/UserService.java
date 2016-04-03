@@ -1,4 +1,4 @@
-package bg.jwd.spring.service;
+package bg.jwd.spring.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 import bg.jwd.spring.dao.security.impl.RoleDaoImpl;
 import bg.jwd.spring.dao.security.impl.UserDaoImpl;
 import bg.jwd.spring.dto.CustomerDTO;
-import bg.jwd.spring.model.security.IRole;
-import bg.jwd.spring.model.security.impl.UserImpl;
+import bg.jwd.spring.model.security.Role;
+import bg.jwd.spring.model.security.User;
+import bg.jwd.spring.service.IUserService;
 
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
 
 	protected static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -30,12 +31,12 @@ public class UserService {
 
 
 	@PreAuthorize(value="hasRole('ROLE_SHOP_EMPLOYEE')")
-	public UserImpl createCustomer(String customerName) {
+	public User createCustomer(String customerName) {
 		if (customerName == null || customerName.isEmpty()) {
 			throw new IllegalArgumentException("Customer Name MUST not be null!");
 		}
 		
-		List<IRole> roles = new ArrayList<IRole>();
+		List<Role> roles = new ArrayList<Role>();
 		roles.add( roleDao.findByName("ROLE_USER"));
 
 		if (customerName.startsWith("admin")) {
@@ -44,18 +45,18 @@ public class UserService {
 
 		// username...: <ANY>
 		// pass.......: 123456 - hashed with MD5 -- TODO - use bcrypt
-		UserImpl user = userDao.createUser( customerName, "e10adc3949ba59abbe56e057f20f883e", roles );
+		User user = userDao.createUser( customerName, "e10adc3949ba59abbe56e057f20f883e", roles );
 		return user;
 	}
 
-	public UserImpl findCustomerByName(String customerName) {
+	public User findCustomerByName(String customerName) {
 		if (customerName == null || customerName.isEmpty()) {
 			throw new IllegalArgumentException("Customer Name MUST not be empty!");
 		}
 		return userDao.findByUsername( customerName );
 	}
 
-	public UserImpl saveCustomer(UserImpl customer) {
+	public User saveCustomer(User customer) {
 		userDao.saveOrUpdate( customer );
 		return customer;
 	}

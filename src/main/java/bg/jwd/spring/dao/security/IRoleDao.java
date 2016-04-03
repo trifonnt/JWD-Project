@@ -1,10 +1,10 @@
 package bg.jwd.spring.dao.security;
 
-import bg.jwd.spring.model.security.IRole;
+import bg.jwd.spring.model.security.Role;
 
 
 public interface IRoleDao {
 
-	IRole findByName(String name);
+	Role findByName(String name);
 
 }

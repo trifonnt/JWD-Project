@@ -1,4 +1,6 @@
-package bg.jwd.spring.model.product.impl;
+package bg.jwd.spring.model.product;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,16 +10,16 @@ import javax.persistence.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bg.jwd.spring.model.product.IProductType;
-
 
 @Entity
 @Table(name = "ws_product_type")
-public class ProductTypeImpl implements IProductType {
+public class ProductType implements Serializable
+//, ProductType
+{
 
 	private static final long serialVersionUID = 1L;
 
-	protected static final Logger logger = LoggerFactory.getLogger(ProductTypeImpl.class);
+	protected static final Logger logger = LoggerFactory.getLogger(ProductType.class);
 
 	@Id
 	@Column(name = "id")
@@ -28,15 +30,14 @@ public class ProductTypeImpl implements IProductType {
 	private String name;
 
 
-	public ProductTypeImpl() {
+	public ProductType() {
 		super();
 	}
-	public ProductTypeImpl(String name) {
+	public ProductType(String name) {
 		super();
 		this.name = name;
 	}
 
-	@Override
 	public long getId() {
 		return id;
 	}
@@ -44,7 +45,6 @@ public class ProductTypeImpl implements IProductType {
 		this.id = id;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}

@@ -9,12 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
-import bg.jwd.spring.model.security.IRole;
-import bg.jwd.spring.model.security.impl.RoleImpl;
+import bg.jwd.spring.model.security.Role;
 
 @Repository(value="roleDaoImpl")
 public class RoleDaoImpl 
-	extends AbstractHibernateDAO<RoleImpl>
+	extends AbstractHibernateDAO<Role>
 //	implements IRoleDao 
 {
 
@@ -24,7 +23,7 @@ public class RoleDaoImpl
 
 
 	public RoleDaoImpl() {
-		setClazz( RoleImpl.class );
+		setClazz( Role.class );
 	}
 
 	@PostConstruct
@@ -45,12 +44,12 @@ public class RoleDaoImpl
 	}
 
 //	@Override
-	public IRole findByName(String roleName) {
+	public Role findByName(String roleName) {
 		if (roleName == null || roleName.isEmpty()) {
 			throw new IllegalArgumentException("Role name MUST not be empty!");
 		}
 		String hql = "FROM " + clazz.getName() + " WHERE name = :name";
-		RoleImpl result = (RoleImpl) getSession().createQuery( hql )
+		Role result = (Role) getSession().createQuery( hql )
 			.setString("name", roleName)
 			.uniqueResult();
 		logger.info("--- FOUND Role: " + result);

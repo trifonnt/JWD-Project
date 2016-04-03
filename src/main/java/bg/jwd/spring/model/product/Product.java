@@ -1,5 +1,6 @@
-package bg.jwd.spring.model.product.impl;
+package bg.jwd.spring.model.product;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
@@ -14,19 +15,18 @@ import javax.persistence.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bg.jwd.spring.model.product.IProduct;
-import bg.jwd.spring.model.product.IProductType;
-import bg.jwd.spring.model.security.IUser;
-import bg.jwd.spring.model.security.impl.UserImpl;
+import bg.jwd.spring.model.security.User;
 
 
 @Entity
 @Table(name = "ws_product")
-public class ProductImpl implements IProduct {
+public class Product implements Serializable
+//, IProduct
+{
 
 	private static final long serialVersionUID = 1L;
 
-	protected static final Logger logger = LoggerFactory.getLogger(ProductImpl.class);
+	protected static final Logger logger = LoggerFactory.getLogger(Product.class);
 
 	@Id
 	@Column(name = "id")
@@ -42,9 +42,9 @@ public class ProductImpl implements IProduct {
 	@Column(name = "description")
 	private String description;
 
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ProductTypeImpl.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ProductType.class)
 	@JoinColumn(name = "type_id")
-	private IProductType type;
+	private ProductType type;
 
 	@Column(name = "price")
 	private BigDecimal price;
@@ -52,15 +52,15 @@ public class ProductImpl implements IProduct {
 	@Column(name = "qty_on_hand")
 	private BigDecimal qtyOnHand;
 
-	@ManyToOne(targetEntity = UserImpl.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "creator_id")
-	private IUser createdBy;
+	private User createdBy;
 
 
-	public ProductImpl() {
+	public Product() {
 		
 	}
-	public ProductImpl(String productNumber, String name, IProductType type, IUser createdBy) {
+	public Product(String productNumber, String name, ProductType type, User createdBy) {
 		super();
 		if (productNumber == null || productNumber.isEmpty()) {
 			throw new IllegalArgumentException("ProductNumber MUST not be null!");
@@ -80,7 +80,6 @@ public class ProductImpl implements IProduct {
 		}
 	}
 
-	@Override
 	public long getId() {
 		return id;
 	}
@@ -88,7 +87,6 @@ public class ProductImpl implements IProduct {
 		this.id = id;
 	}
 
-	@Override
 	public String getNumber() {
 		return number;
 	}
@@ -96,7 +94,6 @@ public class ProductImpl implements IProduct {
 		this.number = number;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -111,15 +108,13 @@ public class ProductImpl implements IProduct {
 		this.description = description;
 	}
 
-	@Override
-	public IProductType getType() {
+	public ProductType getType() {
 		return type;
 	}
-	public void setType(IProductType type) {
+	public void setType(ProductType type) {
 		this.type = type;
 	}
 
-	@Override
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -127,7 +122,6 @@ public class ProductImpl implements IProduct {
 		this.price = price;
 	}
 
-	@Override
 	public BigDecimal getQtyOnHand() {
 		return qtyOnHand;
 	}
@@ -135,11 +129,10 @@ public class ProductImpl implements IProduct {
 		this.qtyOnHand = qtyOnHand;
 	}
 
-	@Override
-	public IUser getCreatedBy() {
+	public User getCreatedBy() {
 		return createdBy;
 	}
-	public void setCreatedBy(IUser createdBy) {
+	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
 }

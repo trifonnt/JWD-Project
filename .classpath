@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="bg/jwd/spring/model/security/IRole.java|bg/jwd/spring/model/security/IUser.java|bg/jwd/spring/model/product/IProduct.java|bg/jwd/spring/model/product/IProductType.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>

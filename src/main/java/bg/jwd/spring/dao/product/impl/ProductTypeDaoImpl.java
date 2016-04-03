@@ -14,13 +14,13 @@ import org.springframework.stereotype.Repository;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
 import bg.jwd.spring.dto.ProductTypeDTO;
-import bg.jwd.spring.model.product.impl.ProductTypeImpl;
-import bg.jwd.spring.model.security.impl.UserImpl;
+import bg.jwd.spring.model.product.ProductType;
+import bg.jwd.spring.model.security.User;
 
 
 @Repository(value="productTypeDaoImpl")
 public class ProductTypeDaoImpl
-	extends AbstractHibernateDAO<ProductTypeImpl>
+	extends AbstractHibernateDAO<ProductType>
 //	implements IProductTypeDao
 {
 
@@ -29,7 +29,7 @@ public class ProductTypeDaoImpl
 	private static AtomicLong idCounter = null;
 
 	public ProductTypeDaoImpl() {
-		setClazz(ProductTypeImpl.class );
+		setClazz(ProductType.class );
 	}
 
 
@@ -49,7 +49,7 @@ public class ProductTypeDaoImpl
 		logger.info("idCounter = {}", idCounter);
 	}
 
-	public ProductTypeImpl createProductType(String name, UserImpl creator) {
+	public ProductType createProductType(String name, User creator) {
 		if (name == null || name.isEmpty()) {
 			throw new IllegalArgumentException("Name MUST not be null!");
 		}
@@ -57,18 +57,18 @@ public class ProductTypeDaoImpl
 //		if (currentCreator == null) {
 //			currentCreator = (UserImpl)UserUtils.getCurrentUser();
 //		}
-		ProductTypeImpl productType = new ProductTypeImpl( name );
+		ProductType productType = new ProductType( name );
 		productType.setId( idCounter.incrementAndGet() );
 		return productType;
 	}
 
 //	@Override
-	public ProductTypeImpl findByName(String name) {
+	public ProductType findByName(String name) {
 		if (name == null || name.isEmpty()) {
 			throw new IllegalArgumentException("Name MUST not be empty!");
 		}
 		String hql = "FROM " + clazz.getName() + " WHERE name = :name";
-		ProductTypeImpl result = (ProductTypeImpl) getSession().createQuery( hql )
+		ProductType result = (ProductType) getSession().createQuery( hql )
 			.setString("name", name)
 			.uniqueResult();
 		logger.info("--- FOUND ProductType: " + result);

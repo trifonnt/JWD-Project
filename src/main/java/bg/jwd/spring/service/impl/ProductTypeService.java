@@ -1,4 +1,4 @@
-package bg.jwd.spring.service;
+package bg.jwd.spring.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +11,13 @@ import org.springframework.stereotype.Service;
 
 import bg.jwd.spring.dao.product.impl.ProductTypeDaoImpl;
 import bg.jwd.spring.dto.ProductTypeDTO;
-import bg.jwd.spring.model.product.impl.ProductTypeImpl;
-import bg.jwd.spring.model.security.impl.UserImpl;
+import bg.jwd.spring.model.product.ProductType;
+import bg.jwd.spring.model.security.User;
+import bg.jwd.spring.service.IProductTypeService;
 
 
 @Service
-public class ProductTypeService {
+public class ProductTypeService implements IProductTypeService {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ProductTypeService.class);
 
@@ -24,27 +25,33 @@ public class ProductTypeService {
 	private ProductTypeDaoImpl productTypeDao;
 
 
-	public ProductTypeImpl create(String name,  UserImpl creator) {
+	@Override
+	public ProductType create(String name,  User creator) {
 		return productTypeDao.createProductType( name, creator );
 	}
 
-	public ProductTypeImpl findProductTypeById(long id) {
+	@Override
+	public ProductType findProductTypeById(long id) {
 		return productTypeDao.findById( id );
 	}
 
-	public ProductTypeImpl findProductTypeByName(String name) {
+	@Override
+	public ProductType findProductTypeByName(String name) {
 		return productTypeDao.findByName( name );
 	}
 
-	public List<ProductTypeImpl> findAll() {
+	@Override
+	public List<ProductType> findAll() {
 		return productTypeDao.findAll();
 	}
 
-	public ProductTypeImpl saveProductType(ProductTypeImpl productType) {
+	@Override
+	public ProductType saveProductType(ProductType productType) {
 		productTypeDao.saveOrUpdate( productType );
 		return productType;
 	}
 
+	@Override
 	public List<ProductTypeDTO> getAll(ProductTypeDTO searchPrototype) {
 		List<ProductTypeDTO> result = new ArrayList<ProductTypeDTO>();
 		result = productTypeDao.getAllAsDTO( searchPrototype );

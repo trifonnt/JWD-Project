@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import bg.jwd.spring.AppConstants;
 import bg.jwd.spring.dto.CustomerDTO;
-import bg.jwd.spring.service.UserService;
+import bg.jwd.spring.service.IUserService;
 
 
 @Controller
@@ -21,7 +21,7 @@ public class CustomerController {
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
 	@Inject
-	private UserService userService;
+	private IUserService userService;
 
 
 	@RequestMapping(value = AppConstants.CUSTOMER_REGISTER_FRONT_END_PAGE, method = RequestMethod.GET)

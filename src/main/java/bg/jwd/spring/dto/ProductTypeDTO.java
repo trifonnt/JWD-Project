@@ -1,6 +1,6 @@
 package bg.jwd.spring.dto;
 
-import bg.jwd.spring.model.product.impl.ProductTypeImpl;
+import bg.jwd.spring.model.product.ProductType;
 
 public class ProductTypeDTO {
 
@@ -42,7 +42,7 @@ public class ProductTypeDTO {
 		this.creatorName = creatorName;
 	}
 
-	public static ProductTypeDTO constructDto(ProductTypeImpl productType) {
+	public static ProductTypeDTO constructDto(ProductType productType) {
 		ProductTypeDTO result = new ProductTypeDTO();
 		if (productType != null) {
 			result.setId( productType.getId() );

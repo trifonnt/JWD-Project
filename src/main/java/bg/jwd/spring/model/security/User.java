@@ -1,5 +1,6 @@
-package bg.jwd.spring.model.security.impl;
+package bg.jwd.spring.model.security;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -17,18 +18,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import bg.jwd.spring.model.security.IRole;
-import bg.jwd.spring.model.security.IUser;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
 @Table(name = "ws_user")
-public class UserImpl implements IUser {
+public class User implements UserDetails, Serializable
+//, IUser
+{
 
 	private static final long serialVersionUID = -5025098630443219650L;
 
-	protected static final Logger logger = LoggerFactory.getLogger(UserImpl.class);
+	protected static final Logger logger = LoggerFactory.getLogger(User.class);
 
 	@Id
 	@Column(name = "id")
@@ -56,11 +57,11 @@ public class UserImpl implements IUser {
 
 	// TODO - Use Intermediate(Embeddable) Class
 	// - http://what-when-how.com/hibernate/advanced-entity-association-mappings-hibernate/
-	@OneToMany(fetch=FetchType.EAGER, targetEntity=RoleImpl.class)
+	@OneToMany(fetch=FetchType.EAGER, targetEntity=Role.class)
 	@JoinTable(name = "ws_user_role"
 	, joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }
 	, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
-	private Collection<IRole> roles;
+	private Collection<Role> roles;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -78,10 +79,10 @@ public class UserImpl implements IUser {
 	private boolean emailVerified;
 
 
-	public UserImpl() {
+	public User() {
 		
 	}
-	public UserImpl(String username, String password, Collection<IRole> roles) {
+	public User(String username, String password, Collection<Role> roles) {
 		this.enabled = true;
 		this.accountNonExpired = true;
 		this.credentialsNonExpired = true;
@@ -89,7 +90,7 @@ public class UserImpl implements IUser {
 		this.username = username;
 		this.password = password;
 		if (roles == null) {
-			this.roles = new ArrayList<IRole>();
+			this.roles = new ArrayList<Role>();
 		} else {
 			this.roles = roles;
 		}
@@ -99,7 +100,7 @@ public class UserImpl implements IUser {
 	public void postConstruct() {
 		logger.info("PostConstruct");
 		if (roles == null) {
-			roles = new ArrayList<IRole>();
+			roles = new ArrayList<Role>();
 		}
 	}
 
@@ -111,7 +112,6 @@ public class UserImpl implements IUser {
 		this.id = id;
 	}
 
-	@Override
 	public boolean isAccountNonExpired() {
 		return accountNonExpired;
 	}
@@ -119,7 +119,6 @@ public class UserImpl implements IUser {
 		this.accountNonExpired = accountNonExpired;
 	}
 
-	@Override
 	public boolean isAccountNonLocked() {
 		return accountNonLocked;
 	}
@@ -159,12 +158,12 @@ public class UserImpl implements IUser {
 		this.password = password;
 	}
 
-	private Collection<GrantedAuthority> convertRolesToAuthorities(Collection<IRole> roles) {
+	private Collection<GrantedAuthority> convertRolesToAuthorities(Collection<Role> roles) {
 		Collection<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
 		if (roles == null) {
 			return result;
 		}
-		for (IRole role: roles) {
+		for (Role role: roles) {
 			result.add( new SimpleGrantedAuthority( role.getName() ));
 		}
 		return result;
@@ -174,64 +173,54 @@ public class UserImpl implements IUser {
 		return convertRolesToAuthorities ( getRoles() );
 	}
 
-	public void addRole(IRole role) {
+	public void addRole(Role role) {
 		if (role == null) {
 			throw new IllegalArgumentException("Roles MUST not be null!");
 		} else {
 			getRoles().add( role );
 		}
 	}
-	public Collection<IRole> getRoles() {
+	public Collection<Role> getRoles() {
 		if (roles == null) {
-			roles = new ArrayList<IRole>();
+			roles = new ArrayList<Role>();
 		}
 		return roles;
 	}
-	public void setRoles(Collection<IRole> roles) {
+	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
 
-	@Override
 	public String getFirstName() {
 		return firstName;
 	}
-	@Override
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	@Override
 	public String getMiddleName() {
 		return middleName;
 	}
-	@Override
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
 
-	@Override
 	public String getLastName() {
 		return lastName;
 	}
-	@Override
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	@Override
 	public String getEmail() {
 		return email;
 	}
-	@Override
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	@Override
 	public boolean isEmailVerified() {
 		return emailVerified;
 	}
-	@Override
 	public void setEmailVerified(boolean emailVerified) {
 		this.emailVerified = emailVerified;
 	}

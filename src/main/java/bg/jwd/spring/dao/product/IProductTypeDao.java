@@ -1,10 +1,10 @@
 package bg.jwd.spring.dao.product;
 
-import bg.jwd.spring.model.product.impl.ProductImpl;
+import bg.jwd.spring.model.product.Product;
 
 
 public interface IProductTypeDao {
 
-	ProductImpl findByName(String name);
+	Product findByName(String name);
 
 }

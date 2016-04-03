@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import bg.jwd.spring.AppConstants;
 import bg.jwd.spring.dto.ProductTypeDTO;
-import bg.jwd.spring.service.ProductService;
-import bg.jwd.spring.service.ProductTypeService;
+import bg.jwd.spring.service.IProductTypeService;
+import bg.jwd.spring.service.IProductService;
 
 
 @Controller
@@ -23,10 +23,10 @@ public class ProductTypeController {
 
 	@SuppressWarnings("unused")
 	@Inject
-	private ProductService productService;
+	private IProductService productService;
 
 	@Inject
-	private ProductTypeService productTypeService;
+	private IProductTypeService productTypeService;
 
 
 	@RequestMapping(value = AppConstants.PRODUCT_TYPE_REGISTER_FRONT_END_PAGE, method = RequestMethod.GET)
