@@ -112,6 +112,7 @@ public class User implements UserDetails, Serializable
 		this.id = id;
 	}
 
+	@Override
 	public boolean isAccountNonExpired() {
 		return accountNonExpired;
 	}
@@ -119,6 +120,7 @@ public class User implements UserDetails, Serializable
 		this.accountNonExpired = accountNonExpired;
 	}
 
+	@Override
 	public boolean isAccountNonLocked() {
 		return accountNonLocked;
 	}
@@ -175,7 +177,7 @@ public class User implements UserDetails, Serializable
 
 	public void addRole(Role role) {
 		if (role == null) {
-			throw new IllegalArgumentException("Roles MUST not be null!");
+			throw new IllegalArgumentException("Role MUST not be null!");
 		} else {
 			getRoles().add( role );
 		}
@@ -234,6 +236,4 @@ public class User implements UserDetails, Serializable
 				+ ", email=" + email + ", emailVerified=" + emailVerified
 		+ "]";
 	}
-
-	
 }

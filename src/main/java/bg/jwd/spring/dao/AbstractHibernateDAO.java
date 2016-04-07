@@ -10,13 +10,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /*
  *   The DAO with Spring and Hibernate
  * - http://www.baeldung.com/2011/12/02/the-persistence-layer-with-spring-3-1-and-hibernate/
  */
-@SuppressWarnings("unused")
 @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 public abstract class AbstractHibernateDAO<T extends Serializable> {
 
