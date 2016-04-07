@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * - http://www.baeldung.com/2011/12/02/the-persistence-layer-with-spring-3-1-and-hibernate/
  */
 @SuppressWarnings("unused")
+@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 public abstract class AbstractHibernateDAO<T extends Serializable> {
 
 	protected static final Logger logger = LoggerFactory.getLogger(AbstractHibernateDAO.class);
