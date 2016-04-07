@@ -13,15 +13,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
+import bg.jwd.spring.dao.security.IUserDao;
 import bg.jwd.spring.dto.CustomerDTO;
 import bg.jwd.spring.model.security.Role;
 import bg.jwd.spring.model.security.User;
 
 
+@SuppressWarnings("unused")
 @Repository(value="userDaoImpl")
 public class UserDaoImpl
 	extends AbstractHibernateDAO<User>
-//	implements IUserDao 
+//	implements IUserDao // TODO - Use Java Interface
 {
 
 	protected static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);

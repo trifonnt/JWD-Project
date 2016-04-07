@@ -11,15 +11,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import bg.jwd.spring.dao.security.IUserDao;
+import bg.jwd.spring.dao.security.impl.UserDaoImpl;
 
 
+@SuppressWarnings("unused")
 @Transactional(readOnly = true)
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
 	@Inject
-	private IUserDao userDao;
+	private UserDaoImpl userDao; // TODO - use Java Interface(IUserDao)
 
 
 	@PostConstruct
@@ -28,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		logger.info("userDao = " + userDao);
 	}
 
-	public void setUserDaoImpl(IUserDao userDao) {
+	public void setUserDaoImpl(UserDaoImpl userDao) {
 		this.userDao = userDao;
 	}
 
