@@ -20,12 +20,13 @@
 
 
 04) Описание на класовете в проекта
-04.1) Слой с класове, които описват предметната област на приложението
- - bg/jwd/spring/model/security/impl/RoleImpl.java
- - bg/jwd/spring/model/security/impl/UserImpl.java
 
- - bg/jwd/spring/model/product/impl/ProductImpl.java
- - bg/jwd/spring/model/product/impl/ProductTypeImpl.java
+04.1) Слой с класове, които описват предметната област на приложението (Model)
+ - bg/jwd/spring/model/security/Role.java
+ - bg/jwd/spring/model/security/User.java
+
+ - bg/jwd/spring/model/product/Product.java
+ - bg/jwd/spring/model/product/ProductType.java
 
 04.2) Слой за достъп до данните (DAO)
  - bg/jwd/spring/dao/AbstractHibernateDAO.java
@@ -41,11 +42,16 @@
  - bg/jwd/spring/dao/product/impl/ProductTypeDaoImpl.java
 
 04.3) Слой с класове, които предоставят бизнес функционалност (Service)
- - bg/jwd/spring/service/UserService.java
- - bg/jwd/spring/service/ProductService.java
- - bg/jwd/spring/service/ProductTypeService.java
+ - bg/jwd/spring/service/IUserService.java
+ - bg/jwd/spring/service/impl/UserServiceImpl.java
 
-04.4) Слой с класове, които получават заявките от уеб брaузарите.
+ - bg/jwd/spring/service/IProductService.java
+ - bg/jwd/spring/service/impl/ProductServiceImpl.java
+   
+ - bg/jwd/spring/service/IProductTypeService.java
+ - bg/jwd/spring/service/impl/ProductTypeServiceImpl.java
+
+04.4) Слой с класове, които получават заявките от уеб брaузарите (Controller)
  - bg/jwd/spring/controller/LoginController.java
  - bg/jwd/spring/controller/CustomerController.java
  - bg/jwd/spring/controller/ProductController.java

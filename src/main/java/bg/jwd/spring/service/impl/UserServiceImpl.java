@@ -19,9 +19,9 @@ import bg.jwd.spring.service.IUserService;
 
 
 @Service
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
 
-	protected static final Logger logger = LoggerFactory.getLogger(UserService.class);
+	protected static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Inject
 	private UserDaoImpl userDao;

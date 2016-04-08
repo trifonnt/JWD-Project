@@ -17,9 +17,9 @@ import bg.jwd.spring.service.IProductTypeService;
 
 
 @Service
-public class ProductTypeService implements IProductTypeService {
+public class ProductTypeServiceImpl implements IProductTypeService {
 
-	protected static final Logger logger = LoggerFactory.getLogger(ProductTypeService.class);
+	protected static final Logger logger = LoggerFactory.getLogger(ProductTypeServiceImpl.class);
 
 	@Inject
 	private ProductTypeDaoImpl productTypeDao;
