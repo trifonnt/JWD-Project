@@ -1,11 +1,16 @@
 package bg.jwd.spring.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import bg.jwd.spring.model.security.Role;
 import bg.jwd.spring.model.security.User;
 
 public class CustomerDTO {
 
 	private long id;
 	private String username;
+	private String password;
 	private String description;
 	private String firstName;
 	private String middleName;
@@ -13,10 +18,11 @@ public class CustomerDTO {
 	private String email;
 	private String phone;
 	private String creatorName;
+	private Collection<String> roles;
 
 
 	public CustomerDTO() {
-		
+		roles = new ArrayList<String>();
 	}
 
 	public long getId() {
@@ -25,12 +31,24 @@ public class CustomerDTO {
 	public void setId(long id) {
 		this.id = id;
 	}
+	public void setId(String idStr) {
+		if (idStr != null && !idStr.isEmpty()) {
+			id = Integer.parseInt(idStr);
+		}
+	}
 
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String name) {
 		this.username = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getDescription() {
@@ -82,7 +100,21 @@ public class CustomerDTO {
 		this.phone = phone;
 	}
 
-	public static CustomerDTO constructDto(User user) {
+	public Collection<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(Collection<String> roles) {
+		if (roles == null) {
+			this.roles = new ArrayList<String>();
+		} else {
+			this.roles = roles;
+		}
+	}
+	public void addRole(String role) {
+		roles.add( role );
+	}
+
+	public static CustomerDTO constructDTO(User user) {
 		CustomerDTO result = new CustomerDTO();
 		if (user != null) {
 			result.setId( user.getId() );
@@ -93,6 +125,9 @@ public class CustomerDTO {
 			result.setLastName( user.getLastName() );
 			result.setEmail( user.getEmail() );
 //			result.setPhone( user.getPhone );
+			for (Role role: user.getRoles()) {
+				result.addRole( role.getName() );
+			}
 		}
 		return result;
 	}
@@ -111,5 +146,4 @@ public class CustomerDTO {
 				+ ", creatorName=" + creatorName
 		+ "]";
 	}
-
 }

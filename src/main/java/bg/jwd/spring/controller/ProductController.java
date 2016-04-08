@@ -37,7 +37,7 @@ public class ProductController {
 	// GET /product/new/{id}
 	// SERVER: localhost
 	@RequestMapping(value = AppConstants.NEW_PRODUCT_FRONT_END_PAGE, method = RequestMethod.GET)
-	public String showNewProductForm(Model model, @PathVariable("typeId") long typeId) {
+	public String showNewRecordForm(Model model, @PathVariable("typeId") long typeId) {
 		logger.info("Show - Product creation page!");
 
 		ProductType productType = productTypeService.findProductTypeById( typeId );
@@ -51,7 +51,7 @@ public class ProductController {
 	}
 	@Transactional
 	@RequestMapping(value = AppConstants.NEW_PRODUCT_BACK_END_PAGE, method = RequestMethod.POST)
-	public String createProduct(Model model, @ModelAttribute("product")ProductDTO productDto) {
+	public String createRecord(Model model, @ModelAttribute("product")ProductDTO productDto) {
 		logger.debug("POST - Product! ProductDTO is {}.", productDto);
 
 		String number = productDto.getProductNumber();
@@ -97,7 +97,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = AppConstants.EDIT_PRODUCT_FRONT_END_PAGE, method = RequestMethod.GET)
-	public String showEditProductForm(Model model, @PathVariable("id") long productId) {
+	public String showEditRecordForm(Model model, @PathVariable("id") long productId) {
 		logger.info("Show - Product EDIT page!");
 
 		Product product = productService.findProductById( productId );
@@ -111,7 +111,7 @@ public class ProductController {
 	}
 	@Transactional
 	@RequestMapping(value = AppConstants.EDIT_PRODUCT_BACK_END_PAGE, method = RequestMethod.POST)
-	public String editProduct(Model model, @PathVariable("id") long productId, @ModelAttribute("product")ProductDTO productDto) {
+	public String editRecord(Model model, @PathVariable("id") long productId, @ModelAttribute("product")ProductDTO productDto) {
 		logger.debug("POST - Product! ProductDTO is {}.", productDto);
 
 		Product product = productService.findProductById( productId );

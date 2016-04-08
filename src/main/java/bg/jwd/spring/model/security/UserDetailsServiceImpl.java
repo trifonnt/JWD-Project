@@ -26,8 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.info("PostConstruct");
-		logger.info("userDao = " + userDao);
+		logger.debug("PostConstruct");
+		logger.debug("userDao = " + userDao);
 	}
 
 	public void setUserDaoImpl(UserDaoImpl userDao) {

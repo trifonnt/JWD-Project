@@ -31,7 +31,7 @@
 				<td><label for="productNumber">Product Number</label></td>
 				<td><input id="productNumber" name="productNumber"/></td>
 				<td><label for="name">Product Name</label></td>
-				<td><input id="name" name="name"/></td>
+				<td><input id="name" name="name" autofocus/></td>
 				<td><label for="description">Product Description</label></td>
 				<td><input id="description" name="description"/></td>
 				<td><label for="typeName">Product Type</label></td>
@@ -56,8 +56,12 @@
 				<td>${productDTO.price}</td>
 				<td>${productDTO.qtyOnHand}</td>
 				<td>${productDTO.creatorName}</td>
-				<td><a href="product/${productDTO.id}/edit">Edit</a>
-					<br/><a href="product/${productDTO.id}/de-activate">De-Activate</a>
+				<td>
+						<a href="product/${productDTO.id}/order">Add to Basket</a>
+					<sec:authorize access="hasAnyRole('ROLE_SHOP_EMPLOYEE')">
+						 | <a href="product/${productDTO.id}/edit">Edit</a>
+<!--				 | <a href="product/${productDTO.id}/de-activate">De-Activate</a-->
+					</sec:authorize>
 				</td>
 			</tr>
 		</c:forEach>

@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 @Entity
 @Table(name = "ws_product_type")
 public class ProductType implements Serializable
-//, ProductType
 {
 
 	private static final long serialVersionUID = 1L;

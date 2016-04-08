@@ -16,15 +16,12 @@ import javax.persistence.Table;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
 @Table(name = "ws_user")
 public class User implements UserDetails, Serializable
-//, IUser
 {
 
 	private static final long serialVersionUID = -5025098630443219650L;
@@ -80,7 +77,7 @@ public class User implements UserDetails, Serializable
 
 
 	public User() {
-		
+		roles = new ArrayList<Role>();
 	}
 	public User(String username, String password, Collection<Role> roles) {
 		this.enabled = true;
@@ -160,19 +157,9 @@ public class User implements UserDetails, Serializable
 		this.password = password;
 	}
 
-	private Collection<GrantedAuthority> convertRolesToAuthorities(Collection<Role> roles) {
-		Collection<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
-		if (roles == null) {
-			return result;
-		}
-		for (Role role: roles) {
-			result.add( new SimpleGrantedAuthority( role.getName() ));
-		}
-		return result;
-	}
 	@Override
-	public synchronized Collection<GrantedAuthority> getAuthorities() {
-		return convertRolesToAuthorities ( getRoles() );
+	public Collection<Role> getAuthorities() {
+		return getRoles();
 	}
 
 	public void addRole(Role role) {

@@ -10,6 +10,8 @@ public interface IUserService {
 
 	User createCustomer(String customerName);
 
+	User findCustomerById(long customerId);
+
 	User findCustomerByName(String customerName);
 
 	User saveCustomer(User customer);

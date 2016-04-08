@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+
 
 @Entity
 @Table(name = "ws_role")
-public class Role implements Serializable
-//, IRole 
+public class Role
+	implements GrantedAuthority, Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -49,6 +51,10 @@ public class Role implements Serializable
 		this.active = active;
 	}
 
+	@Override
+	public String getAuthority() {
+		return name;
+	}
 	public String getName() {
 		return name;
 	}

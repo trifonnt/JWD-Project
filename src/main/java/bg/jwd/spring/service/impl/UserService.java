@@ -49,6 +49,12 @@ public class UserService implements IUserService {
 		return user;
 	}
 
+	@Override
+	public User findCustomerById(long customerId) {
+		return userDao.findById( customerId );
+	}
+
+	@Override
 	public User findCustomerByName(String customerName) {
 		if (customerName == null || customerName.isEmpty()) {
 			throw new IllegalArgumentException("Customer Name MUST not be empty!");
@@ -56,11 +62,13 @@ public class UserService implements IUserService {
 		return userDao.findByUsername( customerName );
 	}
 
+	@Override
 	public User saveCustomer(User customer) {
 		userDao.saveOrUpdate( customer );
 		return customer;
 	}
 
+	@Override
 	public List<CustomerDTO> getAll(CustomerDTO searchPrototype) {
 		List<CustomerDTO> result = new ArrayList<CustomerDTO>();
 		result = userDao.getAllAsDTO( searchPrototype );

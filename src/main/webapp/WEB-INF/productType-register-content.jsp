@@ -23,7 +23,7 @@
 		<table>
 			<tr>
 				<td><label for="name">Product Type Name</label></td>
-				<td><input id="name" name="name"/></td>
+				<td><input id="name" name="name" autofocus/></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -42,7 +42,7 @@
 				<td>${productTypeDTO.description}</td>
 				<td>${productTypeDTO.creatorName}</td>
 				<td><a href="product-type/${productTypeDTO.id}/edit">Edit</a>
-					<br/><a href="product-type/${productTypeDTO.id}/de-activate">De-Activate</a>
+<!--			| <a href="product-type/${productTypeDTO.id}/de-activate">De-Activate</a-->
 				</td>
 			</tr>
 		</c:forEach>

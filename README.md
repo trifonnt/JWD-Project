@@ -10,10 +10,11 @@
 
 
 02) Диаграма на класовете
- - WS_Product.jpg
- - WS_User_Role.jpg
+ - 01_WS_User_Role.jpg
+ - 02_WS_Product.jpg
+ - 
 
-03) DDL 
+03) DDL and DML files
  - DDL.sql
  - DML.sql
 
@@ -49,3 +50,9 @@
  - bg/jwd/spring/controller/CustomerController.java
  - bg/jwd/spring/controller/ProductController.java
  - bg/jwd/spring/controller/ProductTypeController.java
+
+
+05) TODO
+ - Issues: Editing a customer throws Exception!
+   Request processing failed; nested exception is org.hibernate.HibernateException: Illegal attempt to associate a collection with two open sessions. Collection : [bg.jwd.spring.model.security.User.roles#8]
+   http://localhost:8088/springWebShop/customer/8/edit

@@ -15,6 +15,10 @@
 	<a href="product-type-register">Manage <b>Product Types</b></a> | 
 </sec:authorize>
 <a href="logout">Log Out</a>
+<br/>
+<sec:authorize access="hasAnyRole('ROLE_SHOP_EMPLOYEE')">
+		<a href="customer/new">Register <b>Customer</b></a>
+</sec:authorize>
 <hr/>
 
 <form:form class="semantic" method="GET" action="${pageContext.request.contextPath}/customer-register" modelAttribute="customerSearch">
@@ -22,10 +26,10 @@
 		<legend>Search Criteria</legend>
 		<table>
 			<tr>
-				<td><label for="customerNumber">Customer Number</label></td>
-				<td><input id="customerNumber" name="customerNumber"/></td>
-				<td><label for="name">Customer Name</label></td>
-				<td><input id="name" name="name"/></td>
+				<td><label for="id">Customer Id</label></td>
+				<td><input id="id" name="id" value="0"/></td>
+				<td><label for="username">Username</label></td>
+				<td><input id="username" name="username" autofocus/></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -34,16 +38,21 @@
 
 <table>
 	<thead>
-		<tr><th>Number</th><th>Name</th><th>Created By</th><th>Operation</th><tr>
+		<tr><th>Id</th><th>Username</th><th>Email</th><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Created By</th><th>Roles</th><th>Operation</th><tr>
 	</thead>
 	<tbody>
 		<c:forEach var="customerDTO" items="${customerDTOs}">
 			<tr>
 				<td>${customerDTO.id}</td>
 				<td>${customerDTO.username}</td>
+				<td>${customerDTO.email}</td>
+				<td>${customerDTO.firstName}</td>
+				<td>${customerDTO.middleName}</td>
+				<td>${customerDTO.lastName}</td>
 				<td>${customerDTO.creatorName}</td>
+				<td>${customerDTO.roles}</td>
 				<td><a href="customer/${customerDTO.id}/edit">Edit</a>
-					<br/><a href="customer/${customerDTO.id}/de-activate">De-Activate</a>
+<!--			| <a href="customer/${customerDTO.id}/de-activate">De-Activate</a-->
 				</td>
 			</tr>
 		</c:forEach>

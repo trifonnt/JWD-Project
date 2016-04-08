@@ -21,7 +21,6 @@ import bg.jwd.spring.model.security.User;
 @Entity
 @Table(name = "ws_product")
 public class Product implements Serializable
-//, IProduct
 {
 
 	private static final long serialVersionUID = 1L;
