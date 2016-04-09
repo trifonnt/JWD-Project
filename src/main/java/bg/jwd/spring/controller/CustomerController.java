@@ -81,7 +81,7 @@ public class CustomerController {
 		model.addAttribute("customer", customerDto);
 		return "customer-edit";
 	}
-	@RequestMapping(value = AppConstants.EDIT_CUSTOMER_BACK_END_PAGE, method = RequestMethod.POST)
+	@RequestMapping(value = AppConstants.EDIT_N_DELETE_CUSTOMER_BACK_END_PAGE, method = RequestMethod.POST)
 	public String editRecord(Model model, @PathVariable("id") long customerId, @ModelAttribute("customer")CustomerDTO customerDto) {
 		logger.debug("POST - Customer! CustomerDTO is {}.", customerDto);
 

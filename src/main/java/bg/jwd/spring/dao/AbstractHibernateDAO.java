@@ -28,26 +28,30 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
 	protected SessionFactory sessionFactory;
 
 
+	@Transactional(readOnly = true)
 	public void setSessionFactory(SessionFactory sessionFactory) {
-		logger.info("--- setSessionFactory!");
+		logger.debug("--- setSessionFactory!");
 		this.sessionFactory = sessionFactory;
 	}
 
 	@PostConstruct
 	public void postConstruct() {
-		logger.info("PostConstruct");
-		logger.info("sessionfactory = " + sessionFactory);
+		logger.debug("PostConstruct");
+		logger.debug("sessionfactory = " + sessionFactory);
 	}
 
+	@Transactional(readOnly = true)
 	public void setClazz(final Class<T> clazzToSet) {
 		clazz = clazzToSet;
 	}
 
+	@Transactional(readOnly = true)
 	public T findById(final long id) {
 		return (T) getSession().get(clazz, id);
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public List<T> findAll() {
 		return getSession().createQuery("FROM " + clazz.getName()).list();
 	}
@@ -88,7 +92,7 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
 
 	///////////////////
 	// Helper methods
-	protected final Session getSession() {
+	public final Session getSession() {
 		return getNewSession();
 //		return getCurrentSession();
 	}
@@ -96,7 +100,7 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
 		return sessionFactory.getCurrentSession();
 	}
 	protected final Session getNewSession() {
-//		logger.info("--- sessionFactory = " + sessionFactory);
+//		logger.debug("--- sessionFactory = " + sessionFactory);
 		return sessionFactory.openSession();
 	}
 }

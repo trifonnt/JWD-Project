@@ -12,8 +12,10 @@ import org.hibernate.type.LongType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
+import bg.jwd.spring.dao.product.IProductDao;
 import bg.jwd.spring.dto.ProductDTO;
 import bg.jwd.spring.model.product.ProductType;
 import bg.jwd.spring.model.product.Product;
@@ -23,7 +25,7 @@ import bg.jwd.spring.model.security.User;
 @Repository(value="productDaoImpl")
 public class ProductDaoImpl
 	extends AbstractHibernateDAO<Product>
-//	implements IProductDao
+	implements IProductDao
 {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ProductDaoImpl.class);
@@ -36,6 +38,7 @@ public class ProductDaoImpl
 
 
 	@PostConstruct
+	@Transactional(readOnly = true)
 	public void postConstruct() {
 		logger.info("PostConstruct");
 //		Criteria criteria = getSession()
@@ -51,6 +54,7 @@ public class ProductDaoImpl
 		logger.info("idCounter = {}", idCounter);
 	}
 
+	@Override
 	public Product createProduct(String productNumber, String name, ProductType type, User creator) {
 		if (productNumber == null || productNumber.isEmpty()) {
 			throw new IllegalArgumentException("ProductNumber MUST not be null!");
@@ -64,6 +68,8 @@ public class ProductDaoImpl
 		return product;
 	}
 
+	@Override
+	@Transactional(readOnly = true)
 	public Product findByNumber(String number) {
 		if (number == null || number.isEmpty()) {
 			throw new IllegalArgumentException("ProductNumber MUST not be empty!");
@@ -75,6 +81,8 @@ public class ProductDaoImpl
 		logger.info("--- FOUND Product: " + result);
 		return result;
 	}
+	@Override
+	@Transactional(readOnly = true)
 	public List<Product> findByName(String name) {
 		if (name == null || name.isEmpty()) {
 			throw new IllegalArgumentException("Name MUST not be empty!");
@@ -98,6 +106,8 @@ WHERE 1 = 1
  */
 	// http://stackoverflow.com/questions/3435588/hibernate-sqlquery-extract-variable
 	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
 	public List<ProductDTO> getAllAsDTO(ProductDTO searchPrototype) {
 		StringBuffer sql = new StringBuffer("SELECT prd.id, prd_number AS productNumber, prd.name, prd.description, type.name AS typeName"
 				+ ", price AS priceBd, qty_on_hand AS qtyOnHandBd, creator.user_name AS creatorName "

@@ -57,10 +57,9 @@ public class Product implements Serializable
 
 
 	public Product() {
-		
+		//
 	}
 	public Product(String productNumber, String name, ProductType type, User createdBy) {
-		super();
 		if (productNumber == null || productNumber.isEmpty()) {
 			throw new IllegalArgumentException("ProductNumber MUST not be null!");
 		}

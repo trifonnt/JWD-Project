@@ -11,8 +11,10 @@ import org.hibernate.type.LongType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
+import bg.jwd.spring.dao.product.IProductTypeDao;
 import bg.jwd.spring.dto.ProductTypeDTO;
 import bg.jwd.spring.model.product.ProductType;
 import bg.jwd.spring.model.security.User;
@@ -21,7 +23,7 @@ import bg.jwd.spring.model.security.User;
 @Repository(value="productTypeDaoImpl")
 public class ProductTypeDaoImpl
 	extends AbstractHibernateDAO<ProductType>
-//	implements IProductTypeDao
+	implements IProductTypeDao
 {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ProductTypeDaoImpl.class);
@@ -34,6 +36,7 @@ public class ProductTypeDaoImpl
 
 
 	@PostConstruct
+	@Transactional(readOnly = true)
 	public void postConstruct() {
 		logger.info("PostConstruct");
 //		Criteria criteria = getSession()
@@ -62,7 +65,8 @@ public class ProductTypeDaoImpl
 		return productType;
 	}
 
-//	@Override
+	@Override
+	@Transactional(readOnly = true)
 	public ProductType findByName(String name) {
 		if (name == null || name.isEmpty()) {
 			throw new IllegalArgumentException("Name MUST not be empty!");
@@ -76,6 +80,7 @@ public class ProductTypeDaoImpl
 	}
 
 
+	@Transactional(readOnly = true)
 	public List<ProductTypeDTO> getAllAsDTO(ProductTypeDTO searchPrototype) {
 		StringBuffer sql = new StringBuffer("SELECT t.id, t.name "
 //				+ ", creator.user_name AS creatorName "

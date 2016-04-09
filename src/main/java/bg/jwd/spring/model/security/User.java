@@ -54,7 +54,7 @@ public class User implements UserDetails, Serializable
 
 	// TODO - Use Intermediate(Embeddable) Class
 	// - http://what-when-how.com/hibernate/advanced-entity-association-mappings-hibernate/
-	@OneToMany(fetch=FetchType.EAGER, targetEntity=Role.class)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ws_user_role"
 	, joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }
 	, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })

@@ -57,11 +57,12 @@
 				<td>${productDTO.qtyOnHand}</td>
 				<td>${productDTO.creatorName}</td>
 				<td>
-						<a href="product/${productDTO.id}/order">Add to Basket</a>
 					<sec:authorize access="hasAnyRole('ROLE_SHOP_EMPLOYEE')">
-						 | <a href="product/${productDTO.id}/edit">Edit</a>
-<!--				 | <a href="product/${productDTO.id}/de-activate">De-Activate</a-->
+						 <a href="product/${productDTO.id}/edit">Edit</a> | 
+<!--				 <a href="product/${productDTO.id}/de-activate">De-Activate</a> | -->
 					</sec:authorize>
+						<!--a href="product/${productDTO.id}/order">Add to Basket</a-->
+						<form:form class="semantic" method="POST" action="product/${productDTO.id}/order"><button id="addToBasket">Basket</button></form:form>
 				</td>
 			</tr>
 		</c:forEach>

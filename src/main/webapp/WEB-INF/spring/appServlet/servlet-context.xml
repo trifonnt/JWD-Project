@@ -24,7 +24,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="bg.jwd.spring" />
+	<context:component-scan base-package="bg.jwd.spring" scoped-proxy="interfaces"/>
 
 	<context:annotation-config/>
 

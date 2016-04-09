@@ -110,7 +110,7 @@ public class ProductController {
 		return "product-edit";
 	}
 	@Transactional
-	@RequestMapping(value = AppConstants.EDIT_PRODUCT_BACK_END_PAGE, method = RequestMethod.POST)
+	@RequestMapping(value = AppConstants.EDIT_N_DELETE_PRODUCT_BACK_END_PAGE, method = RequestMethod.POST)
 	public String editRecord(Model model, @PathVariable("id") long productId, @ModelAttribute("product")ProductDTO productDto) {
 		logger.debug("POST - Product! ProductDTO is {}.", productDto);
 

@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import bg.jwd.spring.model.security.User;
+//import bg.jwd.spring.model.security.User;
+import org.springframework.security.core.userdetails.User;
 
 
 public class UserUtils {

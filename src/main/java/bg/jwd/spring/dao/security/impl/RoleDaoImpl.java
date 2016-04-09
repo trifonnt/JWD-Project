@@ -7,14 +7,16 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
+import bg.jwd.spring.dao.security.IRoleDao;
 import bg.jwd.spring.model.security.Role;
 
 @Repository(value="roleDaoImpl")
 public class RoleDaoImpl 
 	extends AbstractHibernateDAO<Role>
-//	implements IRoleDao 
+	implements IRoleDao
 {
 
 	protected static final Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
@@ -27,9 +29,10 @@ public class RoleDaoImpl
 	}
 
 	@PostConstruct
+	@Transactional(readOnly = true)
 	public void postConstruct() {
-		logger.info("PostConstruct");
-		logger.info("sessionfactory = {}", sessionFactory);
+		logger.debug("PostConstruct");
+		logger.debug("sessionfactory = {}", sessionFactory);
 //		Criteria criteria = getSession()
 //				.createCriteria( clazz )
 //			    .setProjection(Projections.max("id"));
@@ -43,7 +46,8 @@ public class RoleDaoImpl
 		logger.info("idCounter = {}", idCounter);
 	}
 
-//	@Override
+	@Override
+	@Transactional(readOnly = true)
 	public Role findByName(String roleName) {
 		if (roleName == null || roleName.isEmpty()) {
 			throw new IllegalArgumentException("Role name MUST not be empty!");

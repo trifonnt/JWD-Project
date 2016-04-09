@@ -1,3 +1,4 @@
+-- WS_USER, WS_ROLE, WS_USER_ROLE 
 CREATE TABLE ws_user (
 	id NUMBER,
 	user_name VARCHAR2(20),
@@ -54,6 +55,7 @@ FOREIGN KEY (role_id) REFERENCES ws_role(id);
 --UNIQUE (user_id, role_id);
 
 
+-- WS_PRODUCT_TYPE, WS_PRODUCT
 CREATE TABLE ws_product_type (
 	id NUMBER,
 	name VARCHAR2(40),
@@ -91,3 +93,84 @@ FOREIGN KEY (type_id) REFERENCES ws_product_type(id);
 ALTER TABLE ws_product
 ADD CONSTRAINT ws_product__creator_id
 FOREIGN KEY (creator_id) REFERENCES ws_user(id);
+
+
+-- WS_LOCATION, WS_ORDER, WS_ORDER_LINE
+CREATE TABLE ws_location (
+	id NUMBER,
+	country VARCHAR2(60) NOT NULL,
+	state VARCHAR2(60) NOT NULL,
+	city VARCHAR2(60) NOT NULL,
+	address1 VARCHAR2(100) NOT NULL,
+	address2 VARCHAR2(100),
+	description VARCHAR2(255),
+	creator_id NUMBER,
+
+	  CONSTRAINT ws_location_pk PRIMARY KEY (id)
+);
+ALTER TABLE ws_location
+ADD CONSTRAINT ws_location__creator_id
+FOREIGN KEY (creator_id) REFERENCES ws_user(id);
+
+
+CREATE TABLE ws_order (
+	id NUMBER,
+	order_number VARCHAR2(40) NOT NULL,
+	description VARCHAR2(255),
+	creator_id NUMBER,
+	completed CHAR(1) DEFAULT 1, 
+
+	order_partner_id NUMBER NOT NULL,
+	order_partner_location_id NUMBER NOT NULL,
+
+	  CONSTRAINT ws_order_pk PRIMARY KEY (id)
+	, CONSTRAINT ws_product_completed_chk CHECK (completed in (0,1))
+);
+ALTER TABLE ws_order
+ADD CONSTRAINT ws_order_unq
+UNIQUE (order_number);
+
+ALTER TABLE ws_order
+ADD CONSTRAINT ws_order__creator_id
+FOREIGN KEY (creator_id) REFERENCES ws_user(id);
+
+ALTER TABLE ws_order
+ADD CONSTRAINT ws_order__ord_partner_id
+FOREIGN KEY (order_partner_id) REFERENCES ws_user(id);
+
+ALTER TABLE ws_order
+ADD CONSTRAINT ws_order__ord_location_id
+FOREIGN KEY (order_partner_location_id) REFERENCES ws_location(id);
+
+ALTER TABLE ws_order MODIFY (order_partner_location_id NUMBER NULL);
+
+
+CREATE TABLE ws_order_line (
+	id NUMBER,
+	order_id NUMBER NOT NULL,
+	line_no NUMBER NOT NULL,
+	description VARCHAR2(255),
+	creator_id NUMBER,
+
+	product_id NUMBER NOT NULL,
+	qty NUMBER,
+	price NUMBER,
+	total_net_amt NUMBER,
+
+		CONSTRAINT ws_order_line_pk PRIMARY KEY (id)
+);
+ALTER TABLE ws_order_line
+ADD CONSTRAINT ws_order_line_unq
+UNIQUE (order_id, line_no);
+
+ALTER TABLE ws_order_line
+ADD CONSTRAINT ws_order_line__ord_id
+FOREIGN KEY (order_id) REFERENCES ws_order(id);
+
+ALTER TABLE ws_order_line
+ADD CONSTRAINT ws_order_line__creator_id
+FOREIGN KEY (creator_id) REFERENCES ws_user(id);
+
+ALTER TABLE ws_order_line
+ADD CONSTRAINT ws_order_line__product_id
+FOREIGN KEY (product_id) REFERENCES ws_product(id);

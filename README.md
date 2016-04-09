@@ -2,12 +2,15 @@
  - http://localhost:8088/springWebShop/login
 
 
-01) Описание на проекта
+01) Описание на проекта-BG
 Този проект представя Уеб магазин.
 Според правата за достъп в магазина имаме два вида потребители:
  - Потребители на уеб магазина, които могат да поръчват продукти.
  - Служители на фирмата оперираща уеб магазина, които могат да редактират данните в уеб магазина. 
 
+01.2) Description-EN
+From technical point of view this project is implemented as Standard JEE Application.
+This project needs Web Container like Apache Tomcat and Oracle DB in order to run.
 
 02) Диаграма на класовете
  - 01_WS_User_Role.jpg
@@ -22,11 +25,16 @@
 04) Описание на класовете в проекта
 
 04.1) Слой с класове, които описват предметната област на приложението (Model)
+ - bg/jwd/spring/model/common/Location.java
+
  - bg/jwd/spring/model/security/Role.java
  - bg/jwd/spring/model/security/User.java
 
  - bg/jwd/spring/model/product/Product.java
  - bg/jwd/spring/model/product/ProductType.java
+
+ - bg/jwd/spring/model/order/Order.java
+ - bg/jwd/spring/model/order/OrderLine.java
 
 04.2) Слой за достъп до данните (DAO)
  - bg/jwd/spring/dao/AbstractHibernateDAO.java

@@ -9,16 +9,19 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.PostConstruct;
 
 import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.ArrayType;
 import org.hibernate.type.LongType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
 import bg.jwd.spring.dao.security.IUserDao;
 import bg.jwd.spring.dto.CustomerDTO;
+import bg.jwd.spring.dto.OrderDTO;
 import bg.jwd.spring.model.security.Role;
 import bg.jwd.spring.model.security.User;
 
@@ -27,7 +30,7 @@ import bg.jwd.spring.model.security.User;
 @Repository(value="userDaoImpl")
 public class UserDaoImpl
 	extends AbstractHibernateDAO<User>
-//	implements IUserDao // TODO - Use Java Interface
+	implements IUserDao
 {
 
 	protected static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
@@ -40,6 +43,7 @@ public class UserDaoImpl
 	}
 
 	@PostConstruct
+	@Transactional(readOnly = true)
 	public void postConstruct() {
 		logger.info("PostConstruct");
 		logger.info("sessionfactory = {}", sessionFactory);
@@ -56,21 +60,27 @@ public class UserDaoImpl
 		logger.info("idCounter = {}", idCounter);
 	}
 
+	@Override
 	public User createUser(String username, String password, List<Role> roles) {
 		User user = new User( username, password, roles);
 		user.setId( idCounter.incrementAndGet() );
 		return user;
 	}
 
-//	@Override
+	@Override
+	@Transactional(readOnly = true)
 	public User findByUsername(String username) {
 		if (username == null || username.isEmpty()) {
 			throw new IllegalArgumentException("Username MUST not be empty!");
 		}
+		Session session = getSession();
+
 		String hql = "FROM " + clazz.getName() + " WHERE username = :username";
-		User result = (User) getSession().createQuery( hql )
+		User result = (User) session.createQuery( hql )
 			.setString("username", username)
 			.uniqueResult();
+
+		session.flush();
 		logger.info("--- FOUND user: " + result);
 		return result;
 	}
@@ -93,6 +103,8 @@ public class UserDaoImpl
 		return dtos;
 	}
 */
+	@Override
+	@Transactional(readOnly = true)
 	public List<CustomerDTO> getAllAsDTO(CustomerDTO searchPrototype) {
 		Map<Long, CustomerDTO> dtosById = new LinkedHashMap<Long, CustomerDTO>();
 

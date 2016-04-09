@@ -46,7 +46,7 @@
 	public Account readAccount(Long id);
 	-->
 	<security:global-method-security authentication-manager-ref="authManager" 
-			secured-annotations="disabled" jsr250-annotations="disabled" pre-post-annotations="enabled">
+			secured-annotations="disabled" jsr250-annotations="disabled" pre-post-annotations="enabled" proxy-target-class="true">
 	</security:global-method-security>
 
 
