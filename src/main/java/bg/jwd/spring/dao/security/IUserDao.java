@@ -11,7 +11,11 @@ public interface IUserDao {
 
 	User createUser(String username, String password, List<Role> roles);
 
+	User findById(long customerId);
+
 	User findByUsername(String username);
 
 	List<CustomerDTO> getAllAsDTO(CustomerDTO searchPrototype);
+
+	void saveOrUpdate(User customer);
 }

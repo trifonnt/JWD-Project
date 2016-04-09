@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import bg.jwd.spring.dao.product.impl.ProductTypeDaoImpl;
+import bg.jwd.spring.dao.product.IProductTypeDao;
 import bg.jwd.spring.dto.ProductTypeDTO;
 import bg.jwd.spring.model.product.ProductType;
 import bg.jwd.spring.model.security.User;
@@ -22,7 +22,7 @@ public class ProductTypeServiceImpl implements IProductTypeService {
 	protected static final Logger logger = LoggerFactory.getLogger(ProductTypeServiceImpl.class);
 
 	@Inject
-	private ProductTypeDaoImpl productTypeDao;
+	private IProductTypeDao productTypeDao;
 
 
 	@Override

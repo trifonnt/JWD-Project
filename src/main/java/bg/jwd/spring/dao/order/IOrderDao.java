@@ -15,9 +15,13 @@ public interface IOrderDao {
 
 	OrderLine createOrderLine(Order order, User creator);
 
+	Order findById(long orderId);
+
 	Order findShoppingCartByCustomer(User customer);
 
 	List<Order> findOrdersByCustomer(User customer);
+
+	void saveOrUpdate(Order order);
 
 	List<OrderDTO> getAllAsDTO(OrderDTO searchPrototype);
 }

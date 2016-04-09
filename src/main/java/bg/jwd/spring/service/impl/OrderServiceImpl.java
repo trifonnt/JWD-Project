@@ -5,12 +5,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import bg.jwd.spring.dao.order.impl.OrderDaoImpl;
+import bg.jwd.spring.dao.order.IOrderDao;
 import bg.jwd.spring.dto.OrderDTO;
 import bg.jwd.spring.model.common.Location;
 import bg.jwd.spring.model.order.Order;
@@ -26,7 +25,7 @@ public class OrderServiceImpl
 	protected static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
 	@Inject
-	private OrderDaoImpl orderDao;
+	private IOrderDao orderDao;
 
 
 	@Override

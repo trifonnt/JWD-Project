@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import bg.jwd.spring.dao.security.impl.RoleDaoImpl;
-import bg.jwd.spring.dao.security.impl.UserDaoImpl;
+import bg.jwd.spring.dao.security.IRoleDao;
+import bg.jwd.spring.dao.security.IUserDao;
 import bg.jwd.spring.dto.CustomerDTO;
 import bg.jwd.spring.model.security.Role;
 import bg.jwd.spring.model.security.User;
@@ -24,10 +24,10 @@ public class UserServiceImpl implements IUserService {
 	protected static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Inject
-	private UserDaoImpl userDao;
+	private IUserDao userDao;
 
 	@Inject
-	private RoleDaoImpl roleDao;
+	private IRoleDao roleDao;
 
 
 	@PreAuthorize(value="hasRole('ROLE_SHOP_EMPLOYEE')")
