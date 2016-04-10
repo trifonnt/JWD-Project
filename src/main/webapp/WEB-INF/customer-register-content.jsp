@@ -27,7 +27,7 @@
 		<table>
 			<tr>
 				<td><label for="id">Customer Id</label></td>
-				<td><input id="id" name="id" value="0"/></td>
+				<td><input id="id" name="id"/></td>
 				<td><label for="username">Username</label></td>
 				<td><input id="username" name="username" autofocus/></td>
 			</tr>

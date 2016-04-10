@@ -124,7 +124,7 @@ public class UserDaoImpl
 				+ "WHERE 1 = 1 "
 		);
 		if (searchPrototype != null) {
-			if (searchPrototype.getId() > 0 ) {
+			if (searchPrototype.getId() != null && searchPrototype.getId() > 0 ) {
 				sql.append(" AND u.id = :id ");
 			}
 			if (searchPrototype.getUsername() != null  && !searchPrototype.getUsername().isEmpty()) {

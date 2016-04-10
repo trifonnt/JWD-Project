@@ -77,6 +77,7 @@ This project needs Web Container like Apache Tomcat and Oracle DB in order to ru
 
 
 05) TODO
+
 -05.1) Issues
  - Editing a customer throws Exception!
    Request processing failed; nested exception is org.hibernate.HibernateException: Illegal attempt to associate a collection with two open sessions. Collection : [bg.jwd.spring.model.security.User.roles#8]
@@ -86,3 +87,7 @@ This project needs Web Container like Apache Tomcat and Oracle DB in order to ru
  - Add Localization
  - Add Properties to store DB specific settings(DB username, DB password, DB URL)
  - Add Tests
+
+
+06) Notes
+ - In xxxDTO classes always use primitive wrapper classes(Long, Integer, Float).
