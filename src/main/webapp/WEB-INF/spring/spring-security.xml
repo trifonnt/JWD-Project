@@ -28,6 +28,9 @@
 		<security:intercept-url pattern="/login" access="permitAll"/>
 		<security:intercept-url pattern="/resources/**" access="permitAll"/>
 		<security:intercept-url pattern="/product/new/**" access="hasRole('ROLE_SHOP_EMPLOYEE')" />
+		<security:intercept-url pattern="/product/**/edit" access="hasRole('ROLE_SHOP_EMPLOYEE')" />
+		<security:intercept-url pattern="/product-type/new/**" access="hasRole('ROLE_SHOP_EMPLOYEE')" />
+		<security:intercept-url pattern="/product-type/**/edit" access="hasRole('ROLE_SHOP_EMPLOYEE')" />
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_SHOP_EMPLOYEE')" />
 
 		<!-- If CSF is enabled then request to /logout MUST be with POST method!  -->
@@ -50,7 +53,7 @@
 	</security:global-method-security>
 
 
-	<bean id='userDetailsService' class='bg.jwd.spring.model.security.UserDetailsServiceImpl'>
+	<bean id='userDetailsService' class='bg.jwd.spring.service.impl.UserDetailsServiceImpl'>
 		<property name='userDaoImpl' ref='userDaoImpl' />
 	</bean>
 

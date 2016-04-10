@@ -1,32 +1,36 @@
 package bg.jwd.spring.dao.security.impl;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.LongType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import bg.jwd.spring.dao.AbstractHibernateDAO;
-import bg.jwd.spring.dao.security.IRoleDao;
+import bg.jwd.spring.dao.security.IUserRoleDao;
 import bg.jwd.spring.model.security.Role;
+import bg.jwd.spring.model.security.User;
+import bg.jwd.spring.model.security.UserRole;
 
 
-@Repository(value="roleDaoImpl")
-public class RoleDaoImpl 
-	extends AbstractHibernateDAO<Role>
-	implements IRoleDao
+@Repository(value="userRoleDaoImpl")
+public class UserRoleDaoImpl 
+	extends AbstractHibernateDAO<UserRole>
+	implements IUserRoleDao
 {
 
-	protected static final Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
-
-	private static AtomicLong idCounter = null;
+	protected static final Logger logger = LoggerFactory.getLogger(UserRoleDaoImpl.class);
 
 
-	public RoleDaoImpl() {
-		setClazz( Role.class );
+	public UserRoleDaoImpl() {
+		setClazz( UserRole.class );
 	}
 
 	@PostConstruct
@@ -34,33 +38,8 @@ public class RoleDaoImpl
 	public void postConstruct() {
 		logger.debug("PostConstruct");
 		logger.debug("sessionfactory = {}", sessionFactory);
-//		Criteria criteria = getSession()
-//				.createCriteria( clazz )
-//			    .setProjection(Projections.max("id"));
-//		idCounter = (Long)criteria.uniqueResult();
-		idCounter = new AtomicLong(
-			(Long)getSession()
-				.createSQLQuery("SELECT COALESCE(MAX(id), 0) AS max_id FROM ws_role ")
-				.addScalar("max_id", new org.hibernate.type.LongType())
-				.list().get(0)
-			);
-		logger.info("idCounter = {}", idCounter);
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public Role findByName(String roleName) {
-		if (roleName == null || roleName.isEmpty()) {
-			throw new IllegalArgumentException("Role name MUST not be empty!");
-		}
-		String hql = "FROM " + clazz.getName() + " WHERE name = :name";
-		Role result = (Role) getSession().createQuery( hql )
-			.setString("name", roleName)
-			.uniqueResult();
-		logger.info("--- FOUND Role: " + result);
-		return result;
-	}
-/*
 	@Override
 	@Transactional(readOnly = true)
 	public List<Role> findByUser(User user) {
@@ -82,5 +61,13 @@ public class RoleDaoImpl
 		logger.info("--- FOUND User Roles: " + result);
 		return result;
 	}
-*/
+
+	@Override
+	public void saveOrUpdate(Collection<UserRole> userRoles) {
+		if (userRoles != null) {
+			for (UserRole userRole: userRoles) {
+				super.saveOrUpdate( userRole );
+			}
+		}
+	}
 }

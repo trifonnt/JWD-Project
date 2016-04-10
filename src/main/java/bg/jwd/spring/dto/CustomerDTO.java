@@ -8,7 +8,7 @@ import bg.jwd.spring.model.security.User;
 
 public class CustomerDTO {
 
-	private long id;
+	private Long id;
 	private String username;
 	private String password;
 	private String description;
@@ -25,18 +25,18 @@ public class CustomerDTO {
 		roles = new ArrayList<String>();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public void setId(String idStr) {
+/*	public void setId(String idStr) {
 		if (idStr != null && !idStr.isEmpty()) {
 			id = Integer.parseInt(idStr);
 		}
 	}
-
+*/
 	public String getUsername() {
 		return username;
 	}

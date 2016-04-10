@@ -53,7 +53,9 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	public List<T> findAll() {
-		return getSession().createQuery("FROM " + clazz.getName()).list();
+		return getSession().createQuery("FROM " + clazz.getName()
+//			+ " ORDER BY id ASC"
+			).list();
 	}
 
 //	@Transactional

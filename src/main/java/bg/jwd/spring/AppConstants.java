@@ -12,6 +12,8 @@ public class AppConstants {
 	public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
 	// Product controller
+	public static final String NEW_PRODUCT_VIEW_NAME = "product-new";                        // View name
+	public static final String EDIT_PRODUCT_VIEW_NAME = "product-edit";                      // View name
 	public static final String NEW_PRODUCT_FRONT_END_PAGE = "product/new/{typeId:[0-9]+}";   // GET form
 	public static final String EDIT_PRODUCT_FRONT_END_PAGE = "product/{id:[0-9]+}/edit";     // GET form
 	public static final String DELETE_PRODUCT_FRONT_END_PAGE = "product/{id:[0-9]+}/delete"; // GET form
@@ -21,10 +23,19 @@ public class AppConstants {
 
 
 	// ProductType controller
-	public static final String PRODUCT_TYPE_REGISTER_FRONT_END_PAGE = "product-type-register"; // GET list
+	public static final String NEW_PRODUCT_TYPE_VIEW_NAME = "product-type-new";                        // View name
+	public static final String EDIT_PRODUCT_TYPE_VIEW_NAME = "product-type-edit";                      // View name
+	public static final String NEW_PRODUCT_TYPE_FRONT_END_PAGE = "product-type/new";                   // GET form
+	public static final String EDIT_PRODUCT_TYPE_FRONT_END_PAGE = "product-type/{id:[0-9]+}/edit";     // GET form
+	public static final String DELETE_PRODUCT_TYPE_FRONT_END_PAGE = "product-type/{id:[0-9]+}/delete"; // GET form
+	public static final String NEW_PRODUCT_TYPE_BACK_END_PAGE = "product-type";                        // POST content
+	public static final String EDIT_N_DELETE_PRODUCT_TYPE_BACK_END_PAGE = "product-type/{id:[0-9]+}";  // PUT/DELETE content
+	public static final String PRODUCT_TYPE_REGISTER_FRONT_END_PAGE = "product-type-register";         // GET list
 
 
 	// Customer controller
+	public static final String NEW_CUSTOMER_VIEW_NAME = "customer-new";                        // View name
+	public static final String EDIT_CUSTOMER_VIEW_NAME = "customer-edit";                      // View name
 	public static final String NEW_CUSTOMER_FRONT_END_PAGE = "customer/new";                   // GET form
 	public static final String EDIT_CUSTOMER_FRONT_END_PAGE = "customer/{id:[0-9]+}/edit";     // GET form
 	public static final String DELETE_CUSTOMER_FRONT_END_PAGE = "customer/{id:[0-9]+}/delete"; // GET form

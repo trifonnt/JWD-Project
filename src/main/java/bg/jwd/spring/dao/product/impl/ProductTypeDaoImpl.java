@@ -96,6 +96,7 @@ public class ProductTypeDaoImpl
 //				sql.append(" AND t.description LIKE :description ");
 //			}
 		}
+		sql.append(" ORDER BY t.id ASC ");
 		SQLQuery query = getSession().createSQLQuery( sql.toString() );
 		if (searchPrototype != null) {
 			if (searchPrototype.getName() != null  && !searchPrototype.getName().isEmpty()) {

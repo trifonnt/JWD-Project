@@ -13,12 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "ws_user")
 public class User implements UserDetails, Serializable
@@ -54,10 +56,11 @@ public class User implements UserDetails, Serializable
 
 	// TODO - Use Intermediate(Embeddable) Class
 	// - http://what-when-how.com/hibernate/advanced-entity-association-mappings-hibernate/
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "ws_user_role"
-	, joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }
-	, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "ws_user_role"
+//		, joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }
+//		, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+	@Transient
 	private Collection<Role> roles;
 
 	@Column(name = "first_name")
@@ -158,6 +161,7 @@ public class User implements UserDetails, Serializable
 	}
 
 	@Override
+	@Transient
 	public Collection<Role> getAuthorities() {
 		return getRoles();
 	}

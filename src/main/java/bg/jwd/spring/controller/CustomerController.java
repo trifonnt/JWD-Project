@@ -31,7 +31,7 @@ public class CustomerController {
 	public String showNewRecordForm(Model model) {
 		logger.debug("Show - Customer creation page!");
 
-		return "customer-new";
+		return AppConstants.NEW_CUSTOMER_VIEW_NAME;
 	}
 	@RequestMapping(value = AppConstants.NEW_CUSTOMER_BACK_END_PAGE, method = RequestMethod.POST)
 	public String createRecord(Model model, @ModelAttribute("customer")CustomerDTO customerDto) {
@@ -79,7 +79,7 @@ public class CustomerController {
 		}
 		CustomerDTO customerDto = CustomerDTO.constructDTO( customer );
 		model.addAttribute("customer", customerDto);
-		return "customer-edit";
+		return AppConstants.EDIT_CUSTOMER_VIEW_NAME;
 	}
 	@RequestMapping(value = AppConstants.EDIT_N_DELETE_CUSTOMER_BACK_END_PAGE, method = RequestMethod.POST)
 	public String editRecord(Model model, @PathVariable("id") long customerId, @ModelAttribute("customer")CustomerDTO customerDto) {

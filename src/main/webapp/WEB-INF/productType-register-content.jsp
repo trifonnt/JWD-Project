@@ -15,6 +15,10 @@
 	<a href="customer-register">Manage <b>Customers</b></a> |  
 </sec:authorize>
 <a href="logout">Log Out</a>
+<br/>
+<sec:authorize access="hasAnyRole('ROLE_SHOP_EMPLOYEE')">
+		<a href="product-type/new">Create <b>Product Type</b></a> | 
+</sec:authorize>
 <hr/>
 
 <form:form class="semantic" method="GET" action="${pageContext.request.contextPath}/product-type-register" modelAttribute="productTypeSearch">

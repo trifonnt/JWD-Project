@@ -1,6 +1,8 @@
 package bg.jwd.spring.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import bg.jwd.spring.AppConstants;
-import bg.jwd.spring.dto.ProductDTO;
+import bg.jwd.spring.dto.OrderLineDTO;
 import bg.jwd.spring.model.order.Order;
 import bg.jwd.spring.model.order.OrderLine;
 import bg.jwd.spring.model.product.Product;
@@ -65,16 +67,21 @@ public class OrderController {
 		orderLine.setQtyOrdered( BigDecimal.ONE );
 		orderService.save( basket );
 
-		model.addAttribute("basket", basket);
-		return "product-register";
+		List<OrderLineDTO> orderLines = new ArrayList<OrderLineDTO>();
+//		orderLines.add( OrderLineDTO. );
+		
+		model.addAttribute("orderLineDTOs", orderLines);
+		return AppConstants.ORDER_BASKET_REGISTER_FRONT_END_PAGE;
 	}
 
 
 	@RequestMapping(value = AppConstants.ORDER_BASKET_REGISTER_FRONT_END_PAGE, method = RequestMethod.GET)
-	public String showBasketRegister(Model model, @ModelAttribute(value="productSearch")ProductDTO searchPrototype) {
+	public String showBasketRegister(Model model, @ModelAttribute(value="basketSearch")OrderLineDTO searchPrototype) {
 		logger.debug("GET  - Basket Register! searchPrototype(OrderLineDTO) is {}.", searchPrototype);
 
-		model.addAttribute("productDTOs", productService.getAllProducts( searchPrototype ) );
+		User customer = userService.findCustomerByName( UserUtils.getCurrentUser().getUsername() );
+
+		model.addAttribute("orderLineDTOs", orderService.findShoppingCartByCustomer(customer) );
 		return AppConstants.ORDER_BASKET_REGISTER_FRONT_END_PAGE;
 	}
 }

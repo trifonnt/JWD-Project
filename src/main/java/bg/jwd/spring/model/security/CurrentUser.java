@@ -1,5 +1,7 @@
 package bg.jwd.spring.model.security;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.User;
 
 
@@ -10,8 +12,10 @@ public class CurrentUser extends User {
 	private bg.jwd.spring.model.security.User user;
 
 
-	public CurrentUser(bg.jwd.spring.model.security.User user) {
-		super(user.getUsername(), user.getPassword(), user.getAuthorities());
+	public CurrentUser(bg.jwd.spring.model.security.User user, List<Role> userRoles) {
+//		super(user.getUsername(), user.getPassword(), user.getAuthorities());
+		super(user.getUsername(), user.getPassword(), userRoles);
+		
 		this.user = user;
 	}
 

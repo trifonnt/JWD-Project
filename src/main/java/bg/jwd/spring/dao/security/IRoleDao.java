@@ -7,4 +7,5 @@ public interface IRoleDao {
 
 	Role findByName(String name);
 
+//	List<Role> findByUser(User user);
 }

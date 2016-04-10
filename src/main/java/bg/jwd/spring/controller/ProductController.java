@@ -47,7 +47,7 @@ public class ProductController {
 		}
 		model.addAttribute("productTypeId", typeId);
 		model.addAttribute("productTypeName", productType.getName());
-		return "product-new";
+		return AppConstants.NEW_PRODUCT_VIEW_NAME;
 	}
 	@Transactional
 	@RequestMapping(value = AppConstants.NEW_PRODUCT_BACK_END_PAGE, method = RequestMethod.POST)
@@ -57,24 +57,24 @@ public class ProductController {
 		String number = productDto.getProductNumber();
 		if (number == null || number.isEmpty()) {
 			model.addAttribute("errorMessage", "Form input field [productNumber] is mandatory!");
-			return AppConstants.NEW_PRODUCT_FRONT_END_PAGE;
+			return AppConstants.NEW_PRODUCT_TYPE_VIEW_NAME;
 		}
 
 		String name = productDto.getName();
 		if (name == null || name.isEmpty()) {
 			model.addAttribute("errorMessage", "Form input field [productName] is mandatory!");
-			return AppConstants.NEW_PRODUCT_FRONT_END_PAGE;
+			return AppConstants.NEW_PRODUCT_TYPE_VIEW_NAME;
 		}
 
 		String typeName = productDto.getTypeName();
 		if (typeName == null || typeName.isEmpty()) {
 			model.addAttribute("errorMessage", "Form input field [typeName] is mandatory!");
-			return AppConstants.NEW_PRODUCT_FRONT_END_PAGE;
+			return AppConstants.NEW_PRODUCT_TYPE_VIEW_NAME;
 		}
 		ProductType productType = productTypeService.findProductTypeByName(typeName);
 		if (productType == null) {
 			model.addAttribute("errorMessage", "Wrong value of input field [typeName]!");
-			return AppConstants.NEW_PRODUCT_FRONT_END_PAGE;
+			return AppConstants.NEW_PRODUCT_TYPE_VIEW_NAME;
 		}
 
 		Product product = productService.findProductByNumber( number );
@@ -107,7 +107,7 @@ public class ProductController {
 		}
 		ProductDTO productDto = ProductDTO.constructDto( product );
 		model.addAttribute("product", productDto);
-		return "product-edit";
+		return AppConstants.EDIT_PRODUCT_VIEW_NAME;
 	}
 	@Transactional
 	@RequestMapping(value = AppConstants.EDIT_N_DELETE_PRODUCT_BACK_END_PAGE, method = RequestMethod.POST)
@@ -132,6 +132,8 @@ public class ProductController {
 			return AppConstants.EDIT_PRODUCT_FRONT_END_PAGE;
 		}
 
+		product.setNumber( productDto.getProductNumber() );
+		product.setName( productDto.getName() );
 		product.setDescription( productDto.getDescription() );
 		product.setPrice( productDto.getPriceBd() );
 		product.setQtyOnHand( productDto.getQtyOnHandBd() );

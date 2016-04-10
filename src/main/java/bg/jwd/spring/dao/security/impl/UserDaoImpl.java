@@ -131,6 +131,7 @@ public class UserDaoImpl
 				sql.append(" AND u.user_name LIKE :username ");
 			}
 		}
+		sql.append(" ORDER BY u.id ASC ");
 		SQLQuery query = getSession().createSQLQuery( sql.toString() );
 		if (searchPrototype != null) {
 			if (searchPrototype.getId() > 0) {

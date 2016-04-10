@@ -130,6 +130,7 @@ WHERE 1 = 1
 				sql.append(" AND type.name LIKE :typeName ");
 			}
 		}
+		sql.append(" ORDER BY prd.id ASC ");
 		SQLQuery query = getSession().createSQLQuery( sql.toString() );
 		if (searchPrototype != null) {
 			if (searchPrototype.getProductNumber() != null && !searchPrototype.getProductNumber().isEmpty()) {

@@ -1,4 +1,6 @@
-package bg.jwd.spring.model.security;
+package bg.jwd.spring.service.impl;
+
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -12,10 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bg.jwd.spring.dao.security.IUserDao;
+import bg.jwd.spring.dao.security.IUserRoleDao;
 import bg.jwd.spring.dao.security.impl.UserDaoImpl;
+import bg.jwd.spring.model.security.CurrentUser;
+import bg.jwd.spring.model.security.Role;
+import bg.jwd.spring.model.security.User;
 
 
-@SuppressWarnings("unused")
 @Transactional(readOnly = true)
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -23,13 +28,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
 	@Inject
-	private UserDaoImpl userDao; // TODO - use Java Interface(IUserDao)
+	private IUserDao userDao;
+
+	@Inject
+	private IUserRoleDao userRoleDao;
 
 
 	@PostConstruct
 	public void postConstruct() {
 		logger.debug("PostConstruct");
 		logger.debug("userDao = " + userDao);
+		logger.debug("userRoleDao = " + userRoleDao);
 	}
 
 	public void setUserDaoImpl(UserDaoImpl userDao) {
@@ -42,6 +51,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found!");
 		}
-		return new CurrentUser(user);
+		List<Role> userRoles = userRoleDao.findByUser( user );
+		return new CurrentUser(user, userRoles);
 	}
 }

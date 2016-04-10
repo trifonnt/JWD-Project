@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 
 import bg.jwd.spring.dao.security.IRoleDao;
 import bg.jwd.spring.dao.security.IUserDao;
+import bg.jwd.spring.dao.security.IUserRoleDao;
 import bg.jwd.spring.dto.CustomerDTO;
 import bg.jwd.spring.model.security.Role;
 import bg.jwd.spring.model.security.User;
+import bg.jwd.spring.model.security.UserRole;
 import bg.jwd.spring.service.IUserService;
 
 
@@ -28,6 +30,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Inject
 	private IRoleDao roleDao;
+
+	@Inject
+	private IUserRoleDao userRoleDao;
 
 
 	@PreAuthorize(value="hasRole('ROLE_SHOP_EMPLOYEE')")
@@ -65,6 +70,10 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User saveCustomer(User customer) {
 		userDao.saveOrUpdate( customer );
+		for ( Role role : customer.getRoles()) {
+			UserRole userRole = new UserRole(customer.getId(), role.getId());
+			userRoleDao.saveOrUpdate( userRole );
+		}
 		return customer;
 	}
 

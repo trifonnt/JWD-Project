@@ -49,9 +49,14 @@ This project needs Web Container like Apache Tomcat and Oracle DB in order to ru
  - bg/jwd/spring/dao/product/impl/ProductDaoImpl.java
  - bg/jwd/spring/dao/product/impl/ProductTypeDaoImpl.java
 
+ - bg/jwd/spring/dao/order/IOrderDao.java
+ - bg/jwd/spring/dao/order/impl/OrderDaoImpl.java
+
+
 04.3) Слой с класове, които предоставят бизнес функционалност (Service)
  - bg/jwd/spring/service/IUserService.java
  - bg/jwd/spring/service/impl/UserServiceImpl.java
+ - bg/jwd/spring/service/impl/UserDetailsServiceImpl.java
 
  - bg/jwd/spring/service/IProductService.java
  - bg/jwd/spring/service/impl/ProductServiceImpl.java
@@ -59,14 +64,25 @@ This project needs Web Container like Apache Tomcat and Oracle DB in order to ru
  - bg/jwd/spring/service/IProductTypeService.java
  - bg/jwd/spring/service/impl/ProductTypeServiceImpl.java
 
+ - bg/jwd/spring/service/IOrderService.java
+ - bg/jwd/spring/service/impl/OrderServiceImpl.java
+
+
 04.4) Слой с класове, които получават заявките от уеб брaузарите (Controller)
  - bg/jwd/spring/controller/LoginController.java
  - bg/jwd/spring/controller/CustomerController.java
  - bg/jwd/spring/controller/ProductController.java
  - bg/jwd/spring/controller/ProductTypeController.java
+ - bg/jwd/spring/controller/OrderController.java
 
 
 05) TODO
- - Issues: Editing a customer throws Exception!
+-05.1) Issues
+ - Editing a customer throws Exception!
    Request processing failed; nested exception is org.hibernate.HibernateException: Illegal attempt to associate a collection with two open sessions. Collection : [bg.jwd.spring.model.security.User.roles#8]
    http://localhost:8088/springWebShop/customer/8/edit
+
+-05.2) Improvements
+ - Add Localization
+ - Add Properties to store DB specific settings(DB username, DB password, DB URL)
+ - Add Tests
