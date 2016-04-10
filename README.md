@@ -15,7 +15,7 @@ This project needs Web Container like Apache Tomcat and Oracle DB in order to ru
 02) Диаграма на класовете
  - 01_WS_User_Role.jpg
  - 02_WS_Product.jpg
- - 
+ - 03_WS_Order_n_OrderLine.png
 
 03) DDL and DML files
  - DDL.sql
