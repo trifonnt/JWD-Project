@@ -2,13 +2,15 @@
  - http://localhost:8088/springWebShop/login
 
 
-01) Описание на проекта-BG
+01.1) Описание на проекта-BG
+
 Този проект представя Уеб магазин.
 Според правата за достъп в магазина имаме два вида потребители:
  - Потребители на уеб магазина, които могат да поръчват продукти.
  - Служители на фирмата оперираща уеб магазина, които могат да редактират данните в уеб магазина. 
 
 01.2) Description-EN
+
 From technical point of view this project is implemented as Standard JEE Application.
 This project needs Web Container like Apache Tomcat and Oracle DB in order to run.
 
